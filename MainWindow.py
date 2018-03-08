@@ -4,6 +4,10 @@
 # In conjunction with Tcl version 8.6
 #    Jan 22, 2018 11:41:00 PM
 import sys
+from tkinter.tix import ComboBox
+from tkinter.ttk import Combobox
+from MainWindow_support import savefile
+
 
 try:
     from Tkinter import *
@@ -16,8 +20,13 @@ try:
 except ImportError:
     import tkinter.ttk as ttk
     py3 = 1
+import json
 
 import MainWindow_support
+
+import MTCore
+import Cars_XenoAmess
+
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
@@ -97,15 +106,35 @@ class MirageTankGoGUI:
         self.cenableChess.configure(text='''启用棋盘格''')
         self.cenableChess.configure(variable=MainWindow_support.enableChess)
 
-        self.ccolorfulCar = Checkbutton(self.Frame2)
-        self.ccolorfulCar.place(relx=0.01, rely=0.3, relheight=0.15
-                , relwidth=0.24)
-        self.ccolorfulCar.configure(activebackground="#f9f9f9")
-        self.ccolorfulCar.configure(command=MainWindow_support.switchColor)
-        self.ccolorfulCar.configure(justify=LEFT)
-        self.ccolorfulCar.configure(text='''发彩色车''')
-        self.ccolorfulCar.configure(variable=MainWindow_support.colorfulCar)
+        self.ccolorfulCar = ttk.Combobox(self.Frame2,textvariable="模式")
+        self.ccolorfulCar.place(relx=0.24, rely=0.3, relheight=0.15
+                , relwidth=0.2)
+#         self.ccolorfulCar.configure(activebackground="#f9f9f9")
+#         self.ccolorfulCar.configure(command=MainWindow_support.switchColor)
+#         self.ccolorfulCar.configure(justify=LEFT)
+        self.ccolorfulCar.configure(text='''发彩色车''');
+        getattr
+        def changeCarmode(*args):
+            savefile["carmode"] = self.ccolorfulCar.current();
+            MainWindow_support.currentCar = eval(savefile["cars"][savefile["carmode"]]["script"]);
+#             print(savefile["cars"][savefile["carmode"]]["script"]); 
+        self.ccolorfulCar.bind("<<ComboboxSelected>>", changeCarmode)  
+        self.ccolorfulCar["state"] = "readonly";
+        
+        carNames = [];
+        for car in savefile["cars"]:
+            carNames.append(car["name"]);
+        self.ccolorfulCar["values"]=carNames; 
+        self.ccolorfulCar.current(savefile["carmode"])  #选择第一个  
+        
+        
+#         self.ccolorfulCar.configure(variable=MainWindow_support.colorfulCar)
 
+        self.Label1m = Label(self.Frame2)
+        self.Label1m.place(relx=0.03, rely=0.31, height=24, width=68)
+        self.Label1m.configure(activebackground="#f9f9f9")
+        self.Label1m.configure(text='''发车模式:''')
+        
         self.Label11 = Label(self.Frame2)
         self.Label11.place(relx=0.03, rely=0.53, height=24, width=68)
         self.Label11.configure(activebackground="#f9f9f9")

@@ -12,9 +12,8 @@
 #    Jan 22, 2018 10:17:40 PM
 #    Jan 22, 2018 11:28:01 PM
 
-
 import sys
-
+import json
 
 try:
     from Tkinter import *
@@ -37,65 +36,77 @@ except ImportError:
     import tkinter.ttk as ttk
     py3 = 1
 
+import Cars_XenoAmess
+
+file = open("save.txt", "r");
+savefile = json.loads(file.read());
+file.close();
+
+# savefile = object();
+
+
 def set_Tk_var():
     global whiteImg
     whiteImg = StringVar()
-    whiteImg.set('white.jpg')
-
+    whiteImg.set(savefile["whiteImg"])
+    
     global blackImg
     blackImg = StringVar()
-    blackImg.set('black.jpg')
-
+    blackImg.set(savefile["blackImg"])
+    
     global outputImg
     outputImg = StringVar()
-    outputImg.set('remu.png')
+    outputImg.set(savefile["outputImg"])
 
     global blackLight
     blackLight = DoubleVar()
-    blackLight.set(0.2)
+    blackLight.set(savefile["blackLight"])
 
     global whiteLight
     whiteLight = DoubleVar()
-    whiteLight.set(1.0)
+    whiteLight.set(savefile["whiteLight"])
 
     global whiteColor
     whiteColor = DoubleVar()
-    whiteColor.set(0.5)
+    whiteColor.set(savefile["whiteColor"])
 
     global blackColor
     blackColor = DoubleVar()
-    blackColor.set(0.7)
+    blackColor.set(savefile["blackColor"])
 
     global blackScale
     blackScale = DoubleVar()
-    blackScale.set(1.0)
+    blackScale.set(savefile["blackScale"])
 
     global whiteScale
     whiteScale = DoubleVar()
-    whiteScale.set(1.0)
+    whiteScale.set(savefile["whiteScale"])
 
     global enableChess
     enableChess = BooleanVar()
-    enableChess.set(False)
-
-    global colorfulCar
-    colorfulCar = BooleanVar()
-    colorfulCar.set(False)
-
+    enableChess.set(savefile["enableChess"])
+    
+    global currentCar
+    currentCar = eval(savefile["cars"][savefile["carmode"]]["script"]);    
+    
+    
 def switchColor():
     global w, colorfulCar
     print('MainWindow_support.switchColor')
     sys.stdout.flush()
+
 
 def mabout():
     print('MainWindow_support.mabout')
     messagebox.showinfo(title='关于', message='MirageTankGo\n项目主页:\nhttps://github.com/YinTianliang/MirageTankGo')
     sys.stdout.flush()
 
+
 def switchGray():
     global w, enableChess
     print('MainWindow_support.switchGray')
     sys.stdout.flush()
+
 
 def blackBrowser():
     global w
@@ -106,6 +117,7 @@ def blackBrowser():
         w.eblackImg.insert(0, filename)
     sys.stdout.flush()
 
+
 def whiteBrowser():
     global w
     print('MainWindow_support.whiteBrowser')
@@ -114,6 +126,7 @@ def whiteBrowser():
         w.ewhiteImg.delete(0, END)
         w.ewhiteImg.insert(0, filename)
     sys.stdout.flush()
+
 
 def outputBrowser():
     global w
@@ -125,10 +138,32 @@ def outputBrowser():
     sys.stdout.flush()
 
 
+def saveSavefile():
+    global w, whiteLight, blackLight, whiteImg, blackImg, whiteColor, \
+        blackColor, whiteScale, blackScale, enableChess
+    savefile["whiteImg"] = whiteImg.get();
+    savefile["blackImg"] = blackImg.get();
+    savefile["outputImg"] = outputImg.get();
+    
+    savefile["whiteLight"] = whiteLight.get();
+    savefile["blackLight"] = blackLight.get();
+
+    savefile["whiteColor"] = whiteColor.get();
+    savefile["blackColor"] = blackColor.get();
+    savefile["whiteScale"] = whiteScale.get();
+    savefile["blackScale"] = blackScale.get();
+    savefile["enableChess"] = enableChess.get();
+    file = open("save.txt", "w");
+    json.dump(savefile, file, indent=2);
+    file.close();
+
+
 def startBuild():
     global w, outputImg
     print('MainWindow_support.startBuild')
-
+    
+    saveSavefile();
+    
     tryBuild(False).save(outputImg.get(), 'PNG')
 
     messagebox.showinfo(title='提示', message='发车成功!')
@@ -137,21 +172,31 @@ def startBuild():
 
 
 def tryBuild(justATry=True):
-    global w, whiteLight, blackLight, whiteImg, blackImg, whiteColor,\
+    global w, whiteLight, blackLight, whiteImg, blackImg, whiteColor, \
         blackColor, blackScale, whiteScale, enableChess, colorfulCar
-
+    
     print('MainWindow_support.tryBuild')
 
     _whiteImg = Image.open(whiteImg.get())
     _blackImg = Image.open(blackImg.get())
-
+    
     _enableChess = enableChess.get()
-
+    
     # 调整大小
     _whiteScale = whiteScale.get()
     _blackScale = blackScale.get()
-    _whiteImg = _whiteImg.resize((round(x * _whiteScale) for x in _whiteImg.size), Image.ANTIALIAS)
-    _blackImg = _blackImg.resize((round(x * _blackScale) for x in _blackImg.size), Image.ANTIALIAS)
+    if _whiteScale == 0 and _blackScale == 0:
+        whiteWidth, whiteHeight = _whiteImg.size
+        blackWidth, blackHeight = _blackImg.size
+        width = max(whiteWidth, blackWidth)
+        height = max(whiteHeight, blackHeight)
+        _whiteImg = _whiteImg.resize((width,height),Image.ANTIALIAS);
+        _blackImg = _blackImg.resize((width,height),Image.ANTIALIAS);
+        _whiteScale=1;
+        _blackScale=1;
+    else:
+        _whiteImg = _whiteImg.resize((round(x * _whiteScale) for x in _whiteImg.size), Image.ANTIALIAS)
+        _blackImg = _blackImg.resize((round(x * _blackScale) for x in _blackImg.size), Image.ANTIALIAS)
 
     # 预览模式下, 先进行自定义比例的调整, 再以大的图像为标准进行等比例缩小
     if justATry:
@@ -162,16 +207,14 @@ def tryBuild(justATry=True):
         _whiteImg = _whiteImg.resize((round(x * _sacle) for x in _whiteImg.size), Image.ANTIALIAS)
         _blackImg = _blackImg.resize((round(x * _sacle) for x in _blackImg.size), Image.ANTIALIAS)
 
-    if not colorfulCar.get():
-        output = MTCore.grayCar(_whiteImg, _blackImg, whiteLight.get(), blackLight.get(), _enableChess)
-    else:
-        output = MTCore.colorfulCar(_whiteImg, _blackImg, whiteLight.get(), blackLight.get(), whiteColor.get(), blackColor.get(), _enableChess)
-
+    global currentCar;
+    output = currentCar(_whiteImg, _blackImg, whiteLight.get(), blackLight.get(), whiteColor.get(), blackColor.get(), _enableChess)
+    
     if justATry:
         w._img = ImageTk.PhotoImage(output, height=size[1], width=size[0])
         w.showWhite.configure(image=w._img)
         w.showBlack.configure(image=w._img)
-
+    
     sys.stdout.flush()
     return output
 
@@ -184,7 +227,7 @@ def init(top, gui, *args, **kwargs):
     root.resizable(False, False)
 
     try:
-        remu = Image.open('remu.png')
+        remu = Image.open(savefile["outputImg"])
         # TODO: 动态获取
         size = (340, 485)
         scale = min([size[i] / remu.size[i] for i in range(2)])
@@ -204,11 +247,13 @@ def init(top, gui, *args, **kwargs):
     tmp = '{}x{}+{}+{}'.format(width, height, (scrWidth - width) // 2, (scrHeight - height) // 2)
     root.geometry(tmp)
 
+
 def destroy_window():
     # Function which closes the window.
     global top_level
     top_level.destroy()
     top_level = None
+
 
 if __name__ == '__main__':
     import MainWindow
