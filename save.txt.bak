@@ -1,6 +1,6 @@
 {
-  "whiteImg": "C:/Users/sfeq/Pictures/Uplay/WATCH_DOGS\u00ae 2/WATCH_DOGS\u00ae 22017-12-7-0-37-58.jpg",
-  "blackImg": "C:/Users/sfeq/Pictures/(C80) [\u7389\u85fb\u30b9\u30bf\u30b8\u30aa] \u5192\u967a\u8005\u306e\u753a\u3092\u4f5c\u308d\u3046\uff01/002_guishenr_0001.jpg",
+  "whiteImg": "white.jpg",
+  "blackImg": "black.jpg",
   "outputImg": "output.png",
   "whiteLight": 1.0,
   "blackLight": 0.2,
@@ -13,7 +13,7 @@
   "cars": [
     {
       "name": "\u9ed1\u767d\u8f66",
-      "script": "MTCore.grayCar"
+      "script": "Cars_XenoAmess.grayCar"
     },
     {
       "name": "\u5f69\u8272\u8f66",

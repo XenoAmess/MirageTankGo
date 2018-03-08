@@ -13,7 +13,7 @@
   "cars": [
     {
       "name": "\u9ed1\u767d\u8f66",
-      "script": "MTCore.grayCar"
+      "script": "Cars_XenoAmess.grayCar"
     },
     {
       "name": "\u5f69\u8272\u8f66",
