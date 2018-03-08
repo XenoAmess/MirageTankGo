@@ -190,10 +190,10 @@ def tryBuild(justATry=True):
         blackWidth, blackHeight = _blackImg.size
         width = max(whiteWidth, blackWidth)
         height = max(whiteHeight, blackHeight)
-        _whiteImg = _whiteImg.resize((width,height),Image.ANTIALIAS);
-        _blackImg = _blackImg.resize((width,height),Image.ANTIALIAS);
-        _whiteScale=1;
-        _blackScale=1;
+        _whiteImg = _whiteImg.resize((width, height), Image.ANTIALIAS);
+        _blackImg = _blackImg.resize((width, height), Image.ANTIALIAS);
+        _whiteScale = 1;
+        _blackScale = 1;
     else:
         _whiteImg = _whiteImg.resize((round(x * _whiteScale) for x in _whiteImg.size), Image.ANTIALIAS)
         _blackImg = _blackImg.resize((round(x * _blackScale) for x in _blackImg.size), Image.ANTIALIAS)

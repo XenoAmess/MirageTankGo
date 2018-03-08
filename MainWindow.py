@@ -8,7 +8,6 @@ from tkinter.tix import ComboBox
 from tkinter.ttk import Combobox
 from MainWindow_support import savefile
 
-
 try:
     from Tkinter import *
 except ImportError:
@@ -37,7 +36,10 @@ def vp_start_gui():
     MainWindow_support.init(root, top)
     root.mainloop()
 
+
 w = None
+
+
 def create_MirageTankGoGUI(root, *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
@@ -48,6 +50,7 @@ def create_MirageTankGoGUI(root, *args, **kwargs):
     MainWindow_support.init(w, top, *args, **kwargs)
     return (w, top)
 
+
 def destroy_MirageTankGoGUI():
     global w
     w.destroy()
@@ -55,20 +58,19 @@ def destroy_MirageTankGoGUI():
 
 
 class MirageTankGoGUI:
+
     def __init__(self, top=None):
         '''This class configures and populates the toplevel window.
            top is the toplevel containing window.'''
         _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
         _fgcolor = '#000000'  # X11 color: 'black'
-        _compcolor = '#d9d9d9' # X11 color: 'gray85'
-        _ana1color = '#d9d9d9' # X11 color: 'gray85' 
-        _ana2color = '#d9d9d9' # X11 color: 'gray85' 
+        _compcolor = '#d9d9d9'  # X11 color: 'gray85'
+        _ana1color = '#d9d9d9'  # X11 color: 'gray85' 
+        _ana2color = '#d9d9d9'  # X11 color: 'gray85' 
 
         top.geometry("807x719+381+180")
         top.title("MirageTankGoGUI")
         top.configure(highlightcolor="black")
-
-
 
         self.Frame1 = Frame(top)
         self.Frame1.place(relx=0.02, rely=0.26, relheight=0.72, relwidth=0.96)
@@ -106,7 +108,7 @@ class MirageTankGoGUI:
         self.cenableChess.configure(text='''启用棋盘格''')
         self.cenableChess.configure(variable=MainWindow_support.enableChess)
 
-        self.ccolorfulCar = ttk.Combobox(self.Frame2,textvariable="模式")
+        self.ccolorfulCar = ttk.Combobox(self.Frame2, textvariable="模式")
         self.ccolorfulCar.place(relx=0.24, rely=0.3, relheight=0.15
                 , relwidth=0.2)
 #         self.ccolorfulCar.configure(activebackground="#f9f9f9")
@@ -114,9 +116,11 @@ class MirageTankGoGUI:
 #         self.ccolorfulCar.configure(justify=LEFT)
         self.ccolorfulCar.configure(text='''发彩色车''');
         getattr
+
         def changeCarmode(*args):
             savefile["carmode"] = self.ccolorfulCar.current();
             MainWindow_support.currentCar = eval(savefile["cars"][savefile["carmode"]]["script"]);
+
 #             print(savefile["cars"][savefile["carmode"]]["script"]); 
         self.ccolorfulCar.bind("<<ComboboxSelected>>", changeCarmode)  
         self.ccolorfulCar["state"] = "readonly";
@@ -124,9 +128,8 @@ class MirageTankGoGUI:
         carNames = [];
         for car in savefile["cars"]:
             carNames.append(car["name"]);
-        self.ccolorfulCar["values"]=carNames; 
-        self.ccolorfulCar.current(savefile["carmode"])  #选择第一个  
-        
+        self.ccolorfulCar["values"] = carNames; 
+        self.ccolorfulCar.current(savefile["carmode"])  # 选择第一个  
         
 #         self.ccolorfulCar.configure(variable=MainWindow_support.colorfulCar)
 
@@ -246,21 +249,21 @@ class MirageTankGoGUI:
         self.Label1.configure(text='''白底图片:''')
 
         self.ewhiteImg = Entry(self.Frame3)
-        self.ewhiteImg.place(relx=0.25, rely=0.07,height=26, relwidth=0.52)
+        self.ewhiteImg.place(relx=0.25, rely=0.07, height=26, relwidth=0.52)
         self.ewhiteImg.configure(background="white")
         self.ewhiteImg.configure(font="TkFixedFont")
         self.ewhiteImg.configure(selectbackground="#c4c4c4")
         self.ewhiteImg.configure(textvariable=MainWindow_support.whiteImg)
 
         self.eblackImg = Entry(self.Frame3)
-        self.eblackImg.place(relx=0.25, rely=0.24,height=26, relwidth=0.52)
+        self.eblackImg.place(relx=0.25, rely=0.24, height=26, relwidth=0.52)
         self.eblackImg.configure(background="white")
         self.eblackImg.configure(font="TkFixedFont")
         self.eblackImg.configure(selectbackground="#c4c4c4")
         self.eblackImg.configure(textvariable=MainWindow_support.blackImg)
 
         self.eoutputImg = Entry(self.Frame3)
-        self.eoutputImg.place(relx=0.25, rely=0.41,height=26, relwidth=0.52)
+        self.eoutputImg.place(relx=0.25, rely=0.41, height=26, relwidth=0.52)
         self.eoutputImg.configure(background="white")
         self.eoutputImg.configure(font="TkFixedFont")
         self.eoutputImg.configure(selectbackground="#c4c4c4")
@@ -306,8 +309,8 @@ class MirageTankGoGUI:
         self.Label3.configure(activebackground="#f9f9f9")
         self.Label3.configure(text='''输出图片:''')
 
-        self.menubar = Menu(top,font="TkMenuFont",bg=_bgcolor,fg=_fgcolor)
-        top.configure(menu = self.menubar)
+        self.menubar = Menu(top, font="TkMenuFont", bg=_bgcolor, fg=_fgcolor)
+        top.configure(menu=self.menubar)
 
         self.menubar.add_command(
                 activebackground="#d8d8d8",
@@ -319,13 +322,6 @@ class MirageTankGoGUI:
                 label="关于")
 
 
-
-
-
-
-
 if __name__ == '__main__':
     vp_start_gui()
-
-
 

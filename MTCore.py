@@ -3,9 +3,6 @@ from PIL import ImageEnhance
 import math
 
 
-
-
-
 def l1(num):
     if num > 1:
         return 1;
@@ -112,8 +109,8 @@ def colorfulCar(whiteImg, blackImg, whiteLight=1.0, blackLight=0.18, whiteColor=
         r1, g1, b1 = [x / 255 for x in pix1[i]]
         r2, g2, b2 = [x / 255 for x in pix2[i]]
         
-        a1 = r1 * 0.222 + g1 * 0.707 + b1 * 0.071
-        a2 = r2 * 0.222 + g2 * 0.707 + b2 * 0.071
+#         a1 = r1 * 0.222 + g1 * 0.707 + b1 * 0.071
+#         a2 = r2 * 0.222 + g2 * 0.707 + b2 * 0.071
         
 #             gray1 = min((r1 * 0.333333 + g1 * 0.333333 + b1 * 0.333333), 1)
         gray1 = (r1 * g1 * b1) ** (1 / 3);

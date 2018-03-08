@@ -39,7 +39,6 @@ try:
 except ImportError:
     import MTCore
 
-
 if __name__ == '__main__':
     argv = docopt(__doc__, version='1.4')
     # print(argv)
