@@ -68,7 +68,7 @@
 
 ## GUI截图
 
-<img src="https://raw.githubusercontent.com/XenoAmess/MirageTankGo/master/screenshot.png" width="272" height="550">
+<img src="https://raw.githubusercontent.com/XenoAmess/MirageTankGo/master/screenshot.png">
 
 
 ## 依赖
