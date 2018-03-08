@@ -51,27 +51,25 @@
 
 白底图
 
-<img src="https://github.com/YinTianliang/MirageTankGo/blob/master/white.jpg" width="272" height="550">
+<img src="https://github.com/XenoAmess/MirageTankGo/blob/master/white.jpg" width="272" height="550">
 
 
 黑底图
 
-<img src="https://github.com/YinTianliang/MirageTankGo/blob/master/black.jpg" width="272" height="550">
+<img src="https://github.com/XenoAmess/MirageTankGo/blob/master/black.jpg" width="272" height="550">
 
 
 合成图
 
-<img src="https://github.com/YinTianliang/MirageTankGo/blob/master/remu.png" width="272" height="550">
+<img src="https://github.com/XenoAmess/MirageTankGo/blob/master/remu.png" width="272" height="550">
 
 (在白色背景和黑色背景下的样子不同, 建议使用手机QQ发送以查看效果)
 
 
 ## GUI截图
 
-![](https://github.com/YinTianliang/MirageTankGo/blob/master/screenshot.png)
+![](https://github.com/XenoAmess/MirageTankGo/blob/master/screenshot.png)
 
-
-![](https://github.com/YinTianliang/MirageTankGo/blob/master/screenshot2.png)
 
 ## 依赖
 
