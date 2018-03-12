@@ -1,5 +1,10 @@
 /__pycache__/
 /.idea/
+.settings
+.project
+.pydevproject
+
 *.so
 *.o
 *.c
+*.bak
